@@ -9,7 +9,36 @@ import org.bukkit.boss.BarStyle
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.submit
 import taboolib.module.nms.sendMap
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
 import java.util.regex.Pattern
+
+fun sendGet(realUrl: URL): String {
+    try {
+        val result = StringBuilder()
+        val conn = realUrl.openConnection()// 打开和URL之间的连接
+        conn.doInput = true
+        conn.doInput = true
+        conn.setRequestProperty("accept", "*/*") // 设置通用的请求属性
+        conn.setRequestProperty("connection", "Keep-Alive")
+        conn.setRequestProperty("charset", "utf-8")
+        conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)")
+        conn.connectTimeout = 4000
+        conn.connect() // 建立实际的连接
+        val input =
+            BufferedReader(InputStreamReader(conn.getInputStream(), "UTF-8")) // 定义BufferedReader输入流来读取URL的响应
+        var line: String?
+        while (input.readLine().also { line = it } != null) {
+            result.append(line).append("\n")
+        }
+        input.close()
+        return result.toString()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return ""
+    }
+}
 
 /**
  * 创建一个订单

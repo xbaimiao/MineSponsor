@@ -14,7 +14,7 @@ object Log {
             val time = System.currentTimeMillis()
             record.set("$time.player", deposit.player.name)
             record.set("$time.amount", deposit.price)
-            record.set("$time.type", deposit.type)
+            record.set("$time.type", deposit.type.name)
             record.saveToFile()
         }
     }

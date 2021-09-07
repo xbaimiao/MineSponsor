@@ -1,0 +1,42 @@
+<config>
+    <input>
+        <jar in="../build/libs/GPayX-1.0.0-all.jar" out="GPayX-1.0.0-all.jar"/>
+    </input>
+
+    <keep-names>
+        <class access="protected+">
+            <field access="protected+"/>
+            <method access="protected+"/>
+        </class>
+    </keep-names>
+    <!--    <classpath basedir="../libs">-->
+    <!--        <jar name="DGuide-1.0.0-all.jar"/>-->
+    <!--        <jar name="patched_1.16.4.jar"/>-->
+    <!--        <jar name="AuthMe-5.6.0-SNAPSHOT.jar"/>-->
+    <!--    </classpath>-->
+    <ignore-classes>
+        <class template="class *taboolib*"/>
+        <class template="class *command*"/>
+        <class template="class *deposit*"/>
+        <class template="class *kit*"/>
+        <class template="class *util*"/>
+        <class template="class *Fun*"/>
+        <class template="class *ch*"/>
+        <class template="class *Class50*"/>
+        <class template="class *junit*"/>
+        <class template="class *org*"/>
+        <class template="class *mozilla*"/>
+        <class template="class *lombok*"/>
+        <class template="class *java*"/>
+        <class template="class *javax*"/>
+        <class template="class *okhttp3*"/>
+        <class template="class *okio*"/>
+        <class template="class *bea*"/>
+        <class template="class *fasterxml*"/>
+        <class template="class *lly835*"/>
+        <class template="class *wutka*"/>
+        <class template="class *zwitserloot*"/>
+        <class template="class *google*"/>
+    </ignore-classes>
+    <property name="log-file" value="log.xml"/>
+</config>

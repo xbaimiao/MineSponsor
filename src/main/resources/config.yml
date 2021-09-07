@@ -1,4 +1,6 @@
 prefix: "§7[§a§lGPAYX§7]"
+# 插件激活码
+key: ""
 title: "§a请支付/§b请打开充值链接或扫描地图二维码完成支付"
 # 单次创建的最大金额
 maxPrice: 10000.0
@@ -23,6 +25,8 @@ setting:
     - "[console] points give %player_name% %pay_money%"
     - "[tell] &7[&a&f小白测试&7] &7你充值的&a%pay_money%&7点券已到账  "
     - "[condition] %pay_money% > 14999"
+    - "[console] points give %player_name% 500"
+    - "[tell] &7[&a&f小白测试&7] &7你充值的点券大于15000 送你500  "
     - "[points] 150"
     - "[bc] %player_name% 充值了15000点券 奖励所有人 150点"
     - "[bossbar] %player_name% 充值了15000点券!!!!&time&:30"

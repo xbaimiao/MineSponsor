@@ -10,6 +10,7 @@ import taboolib.common.platform.function.info
 import taboolib.module.chat.colored
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.SecuredFile
+import java.net.URL
 
 @RuntimeDependency("!com.google.zxing:core:3.4.1")
 object Main : Plugin() {
@@ -47,13 +48,18 @@ object Main : Plugin() {
     val signLines get() = config.getString("gui.sign").colored().split("\n").toTypedArray()
 
     override fun onEnable() {
-        info("§b  __________________               ____  ___")
-        info("§b /  _____/\\______   \\_____  ___.__.\\   \\/  /")
-        info("§b/   \\  ___ |     ___/\\__  \\<   |  | \\     / ")
-        info("§b\\    \\_\\  \\|    |     / __ \\\\___  | /     \\ ")
-        info("§b \\______  /|____|    (____  / ____|/___/\\  \\")
-        info("§b        \\/                \\/\\/           \\_/")
-        info("§b此版本为付费版本 插件激活码问题请联系QQ§a3104026189")
+        info("  __________________               ____  ___")
+        info(" /  _____/\\______   \\_____  ___.__.\\   \\/  /")
+        info("/   \\  ___ |     ___/\\__  \\<   |  | \\     / ")
+        info("\\    \\_\\  \\|    |     / __ \\\\___  | /     \\ ")
+        info(" \\______  /|____|    (____  / ____|/___/\\  \\")
+        info("        \\/                \\/\\/           \\_/")
+        info("此版本为付费版本 插件激活码问题请联系QQ 3104026189")
+        val keys = sendGet(URL("http://www.xbaimiao.com/gpayx.txt")).split("\n")
+        if (config.getString("key") !in keys) {
+            info("激活码不存在")
+            return
+        }
         Commands.register()
         load()
     }
