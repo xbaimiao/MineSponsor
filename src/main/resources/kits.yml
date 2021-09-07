@@ -1,0 +1,13 @@
+首充奖励:
+  # 开关
+  Enable: true
+  # 每个玩家最多触发多少次
+  MaxAmount: 1
+  # 触发前提 充值了多少点券
+  # 以下命令 代表 判断 玩家这次充值的点券 >= 600
+  Premise: 600
+  # 可用 config 一样的命令参数
+  Commands:
+    # 给600点券 并广播
+    - "[bc] %player_name% 首次充值了600点券 额外奖励600"
+    - "[console] points give %player_name% 600"

@@ -1,0 +1,46 @@
+prefix: "§7[§a§lGPAYX§7]"
+title: "§a请支付/§b请打开充值链接或扫描地图二维码完成支付"
+# 单次创建的最大金额
+maxPrice: 10000.0
+# 单次创建的最小金额
+minPrice: 1.0
+# 高级设置
+setting:
+  # 游戏币倍率  这样就相当于是充值1块钱给100点券
+  exchange: 100
+  # 充值完成后执行的命令
+  commands:
+    # 假如玩家充值了一元， 那么就会通过Points命令给玩家 1 * 游戏币倍率数量的点券
+    # %pay_money% 为玩家本次充值的点券
+    # 可用动作
+    # [player] 玩家执行命令,
+    # [console] 控制台执行,
+    # [tell] 给玩家发送一条消息,
+    # [bc] 给全部玩家发送一条消息,
+    # [bossbar] 给全部玩家发送一条bossbar消息 例如: "[bossbar] %player_name% 充值了15000点券!!!!&time&:5"  &time&:5 代表显示5秒
+    # [points] 数量 给在线全部人点券,
+    # [condition] 条件判断  判断成立才会执行后续内容 只可用 > < =
+    - "[console] points give %player_name% %pay_money%"
+    - "[tell] &7[&a&f小白测试&7] &7你充值的&a%pay_money%&7点券已到账  "
+    - "[condition] %pay_money% > 14999"
+    - "[points] 150"
+    - "[bc] %player_name% 充值了15000点券 奖励所有人 150点"
+    - "[bossbar] %player_name% 充值了15000点券!!!!&time&:30"
+    - "[condition] %pay_money% > 29999"
+    - "[points] 450"
+    - "[bc] %player_name% 充值了30000点券 奖励所有人 450点"
+gui:
+  # 告示牌设置
+  sign: |
+    &f
+    &f请输入赞助金额
+    &f输入完成后点击完成
+  # 支付宝头颅设置
+  ali:
+    name: "&a支付宝"
+    lore:
+      - ""
+  wx:
+    name: "&a微信支付"
+    lore:
+      - ""

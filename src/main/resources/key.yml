@@ -1,0 +1,21 @@
+# 密匙文件 配置教程请查看 http://www.xbaimiao.com/gpayx/index
+# 微信密匙
+pay_wx:
+  # 微信appid
+  appid: "wx5exxxxxxxxx"
+  # 商户号
+  mchid: "12453452"
+  # 商户密匙
+  mchKey: ""
+  # 开发密匙
+  appSecret: ""
+  # 回调url 如果你没有服务器就填百度即可
+  notifyUrl: "http://www.baidu.com"
+# 支付宝密匙 支付宝配置教程请查看 https://www.mcbbs.net/thread-1213524-1-1.html
+pay_ali:
+  # 支付宝appid
+  appid: ""
+  #商户私有key
+  privateKey: ""
+  #支付宝共有key
+  aliPayPublicKey: ""
