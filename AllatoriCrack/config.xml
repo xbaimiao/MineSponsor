@@ -1,6 +1,6 @@
 <config>
     <input>
-        <jar in="../build/libs/GPayX-1.0.0-all.jar" out="GPayX-1.0.0-all.jar"/>
+        <jar in="../build/libs/GPayX-1.0.1-all.jar" out="GPayX-1.0.1.jar"/>
     </input>
 
     <keep-names>
@@ -18,9 +18,11 @@
         <class template="class *taboolib*"/>
         <class template="class *command*"/>
         <class template="class *deposit*"/>
+        <class template="class *api*"/>
         <class template="class *kit*"/>
         <class template="class *util*"/>
         <class template="class *Fun*"/>
+        <class template="class *FunKt*"/>
         <class template="class *ch*"/>
         <class template="class *Class50*"/>
         <class template="class *junit*"/>

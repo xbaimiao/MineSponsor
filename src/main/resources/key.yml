@@ -1,4 +1,3 @@
-# 密匙文件 配置教程请查看 http://www.xbaimiao.com/gpayx/index
 # 微信密匙
 pay_wx:
   # 微信appid
@@ -11,7 +10,7 @@ pay_wx:
   appSecret: ""
   # 回调url 如果你没有服务器就填百度即可
   notifyUrl: "http://www.baidu.com"
-# 支付宝密匙 支付宝配置教程请查看 https://www.mcbbs.net/thread-1213524-1-1.html
+# 支付宝密匙
 pay_ali:
   # 支付宝appid
   appid: ""

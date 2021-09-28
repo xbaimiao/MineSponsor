@@ -62,10 +62,10 @@ internal object Commands {
                 }
             }
             execute<CommandSender> { sender, _, _ ->
-                sender.sendMessage(Main.prefix + "/catpay reload  -> 重载插件")
-                sender.sendMessage(Main.prefix + "/catpay w <数量>  -> 微信充值指定金额")
-                sender.sendMessage(Main.prefix + "/catpay a <数量>  -> 支付宝充值指定金额")
-                sender.sendMessage(Main.prefix + "/catpay auto  -> 打开自助充值页面")
+                sender.sendMessage(Main.prefix + "/gpayx reload  -> 重载插件")
+                sender.sendMessage(Main.prefix + "/gpayx w <数量>  -> 微信充值指定金额")
+                sender.sendMessage(Main.prefix + "/gpayx a <数量>  -> 支付宝充值指定金额")
+                sender.sendMessage(Main.prefix + "/gpayx auto  -> 打开自助充值页面")
             }
         }
     }

@@ -4,12 +4,14 @@ import com.xbaimiao.minecraft.gPay.command.Commands
 import com.xbaimiao.minecraft.gPay.kit.Kit
 import com.xbaimiao.minecraft.gPay.kit.KitListener
 import com.xbaimiao.minecraft.gPay.utils.Service
+import org.bukkit.Bukkit
 import taboolib.common.env.RuntimeDependency
 import taboolib.common.platform.Plugin
 import taboolib.common.platform.function.info
 import taboolib.module.chat.colored
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.SecuredFile
+import taboolib.platform.BukkitPlugin
 import java.net.URL
 
 @RuntimeDependency("!com.google.zxing:core:3.4.1")
@@ -54,10 +56,13 @@ object Main : Plugin() {
         info("\\    \\_\\  \\|    |     / __ \\\\___  | /     \\ ")
         info(" \\______  /|____|    (____  / ____|/___/\\  \\")
         info("        \\/                \\/\\/           \\_/")
-        info("此版本为付费版本 插件激活码问题请联系QQ 3104026189")
-        val keys = sendGet(URL("http://www.xbaimiao.com/gpayx.txt")).split("\n")
-        if (config.getString("key") !in keys) {
+        val state = sendGet(URL("http://www.xbaimiao.com/check?text=${config.getString("key")}"))
+        if (!state.contains("true")) {
+            onDisable()
             info("激活码不存在")
+            info("服务器将在5秒后重启")
+            Thread.sleep(5000)
+            Bukkit.getServer().shutdown()
             return
         }
         Commands.register()
