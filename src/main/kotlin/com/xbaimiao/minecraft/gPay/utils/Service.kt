@@ -3,13 +3,13 @@ package com.xbaimiao.minecraft.gPay.utils
 import com.lly835.bestpay.config.AliPayConfig
 import com.lly835.bestpay.config.WxPayConfig
 import com.lly835.bestpay.service.impl.BestPayServiceImpl
-import com.xbaimiao.minecraft.gPay.Main
+import com.xbaimiao.minecraft.gPay.GPayX
 
 object Service {
 
     private var wxPayConfig: WxPayConfig = object : WxPayConfig() {
         init {
-            val section = Main.key.getConfigurationSection("pay_wx")!!
+            val section = GPayX.key.getConfigurationSection("pay_wx")!!
             appId = section.getString("appid")
             mchId = section.getString("mchid")
             mchKey = section.getString("mchKey")
@@ -20,7 +20,7 @@ object Service {
 
     private var aliPayConfig: AliPayConfig = object : AliPayConfig() {
         init {
-            val section = Main.key.getConfigurationSection("pay_ali")!!
+            val section = GPayX.key.getConfigurationSection("pay_ali")!!
             appId = section.getString("appid")
             privateKey = section.getString("privateKey")
             aliPayPublicKey = section.getString("aliPayPublicKey")
@@ -30,7 +30,7 @@ object Service {
     fun reload() {
         wxPayConfig = object : WxPayConfig() {
             init {
-                val section = Main.key.getConfigurationSection("pay_wx")!!
+                val section = GPayX.key.getConfigurationSection("pay_wx")!!
                 appId = section.getString("appid")
                 mchId = section.getString("mchid")
                 mchKey = section.getString("mchKey")
@@ -40,7 +40,7 @@ object Service {
         }
         aliPayConfig = object : AliPayConfig() {
             init {
-                val section = Main.key.getConfigurationSection("pay_ali")!!
+                val section = GPayX.key.getConfigurationSection("pay_ali")!!
                 appId = section.getString("appid")
                 privateKey = section.getString("privateKey")
                 aliPayPublicKey = section.getString("aliPayPublicKey")

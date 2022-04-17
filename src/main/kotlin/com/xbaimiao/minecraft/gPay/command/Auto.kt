@@ -1,7 +1,7 @@
 package com.xbaimiao.minecraft.gPay.command
 
-import com.xbaimiao.minecraft.gPay.Main
-import com.xbaimiao.minecraft.gPay.createDeposit
+import com.xbaimiao.minecraft.gPay.GPayX
+import com.xbaimiao.minecraft.gPay.deposit.Deposit
 import com.xbaimiao.minecraft.gPay.deposit.DepositType
 import com.xbaimiao.minecraft.gPay.isNumber
 import org.bukkit.Bukkit
@@ -47,14 +47,14 @@ object Auto {
     }
 
     private fun create(player: Player) {
-        player.inputSign(Main.signLines) {
+        player.inputSign(GPayX.signLines) {
             if (it.isEmpty()) {
                 return@inputSign
             }
             val var1 = it[0].replace(Regex("§[0-9a-zA-Z]"), "")
             if (var1.isNumber()) {
                 val amount = var1.toDouble()
-                player.createDeposit(amount, player.getPayType())
+                Deposit.create(player, amount, player.getPayType())
             } else {
                 player.sendLang("input-error")
             }
@@ -71,8 +71,8 @@ object Auto {
                                 "NDA5YWRkNDZlMWMxZjNkMzBkOThkYjQ1NjNkNTMyNjE3MGUyZjk0ZjRlYTY5YWY2ZDJmNzc1NDk5ZTM3MGVmNCJ9fX0=",
                         UUID.randomUUID()
                     )
-                name = Main.config.getString("gui.ali.name")
-                lore.addAll(Main.config.getStringList("gui.ali.lore"))
+                name = GPayX.config.getString("gui.ali.name")
+                lore.addAll(GPayX.config.getStringList("gui.ali.lore"))
                 colored()
                 build()
             }
@@ -83,8 +83,8 @@ object Auto {
                                 "vMWY5YTQwMWMzNzRhZDcwODNmMjVhZGNkZDUyYjQ2YTc0NzQyYzQ4YmEyZTM5ZGQ2YmMzZTAwMTAzZjJmOThkOSJ9fX0=",
                         UUID.randomUUID()
                     )
-                name = Main.config.getString("gui.wx.name")
-                lore.addAll(Main.config.getStringList("gui.wx.lore"))
+                name = GPayX.config.getString("gui.wx.name")
+                lore.addAll(GPayX.config.getStringList("gui.wx.lore"))
                 colored()
                 build()
             }

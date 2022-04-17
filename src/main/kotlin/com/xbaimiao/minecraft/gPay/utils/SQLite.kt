@@ -29,7 +29,7 @@ class SQLite(val file: File) {
         return statement.executeQuery(sql)
     }
 
-    fun close(){
+    fun close() {
         statement.close()
         connection.close()
     }

@@ -1,6 +1,6 @@
 package com.xbaimiao.minecraft.gPay.kit
 
-import com.xbaimiao.minecraft.gPay.Main
+import com.xbaimiao.minecraft.gPay.GPayX
 import com.xbaimiao.minecraft.gPay.deposit.Deposit
 import com.xbaimiao.minecraft.gPay.utils.SQLite
 import org.bukkit.entity.Player
@@ -40,17 +40,17 @@ object KitListener {
             sqlite.statement.executeQuery("SELECT * FROM $tabName WHERE KIT='${kit.name}&${this.name}';")
         if (result.next()) {
             sqlite.statement.executeUpdate("UPDATE $tabName SET AMOUNT=${int} WHERE KIT='${kit.name}&${this.name}'")
-        }else{
+        } else {
             sqlite.statement.executeUpdate("INSERT INTO $tabName VALUES ('${kit.name}&${this.name}',$int)")
         }
     }
 
     fun run(deposit: Deposit) {
-        for (kit in Main.kitList) {
+        for (kit in GPayX.kitList) {
             if (!kit.enable) {
                 continue
             }
-            val num = deposit.price * Main.exchange
+            val num = deposit.price * GPayX.exchange
             if (num >= kit.premise) {
                 val player = deposit.player
                 if (kit.maxAmount > player.getAmount(kit)) {

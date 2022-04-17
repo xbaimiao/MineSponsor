@@ -1,6 +1,6 @@
 prefix: "§7[§a§lGPAYX§7]"
-# 插件激活码
-key: ""
+#接受订单通知的qq 需要配合amazingbot
+qq: ""
 title: "§a请支付/§b请打开充值链接或扫描地图二维码完成支付"
 # 单次创建的最大金额
 maxPrice: 10000.0
@@ -20,19 +20,14 @@ setting:
     # [tell] 给玩家发送一条消息,
     # [bc] 给全部玩家发送一条消息,
     # [bossbar] 给全部玩家发送一条bossbar消息 例如: "[bossbar] %player_name% 充值了15000点券!!!!&time&:5"  &time&:5 代表显示5秒
-    # [points] 数量 给在线全部人点券,
+    # [points] 数量 给在线全部人点券 支持运算 变量%pay_money%为玩家充值点券 %pay_money% * 0.0005 为玩家充值2000 奖励所有人1点券,
     # [condition] 条件判断  判断成立才会执行后续内容 只可用 > < =
     - "[console] points give %player_name% %pay_money%"
+    - "[points] %pay_money% * 0.0005"
     - "[tell] &7[&a&fGPayx&7] &7你充值的&a%pay_money%&7点券已到账  "
     - "[condition] %pay_money% > 4999"
     - "[console] points give %player_name% 500"
-    - "[tell] &7[&a&fGPayx&7] &7你充值的点券大于15000 送你500  "
-    - "[points] 150"
-    - "[bc] %player_name% 充值了15000点券 奖励所有人 150点"
-    - "[bossbar] %player_name% 充值了15000点券!!!!&time&:30"
-    - "[condition] %pay_money% > 29999"
-    - "[points] 450"
-    - "[bc] %player_name% 充值了30000点券 奖励所有人 450点"
+    - "[tell] &7[&a&fGPayx&7] &7你充值的点券大于5000 送你500  "
 gui:
   # 告示牌设置
   sign: |
