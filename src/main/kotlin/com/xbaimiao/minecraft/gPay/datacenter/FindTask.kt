@@ -34,7 +34,7 @@ class FindTask(val type: Type, val year: Int, val month: Int = 0, val day: Int =
         }
         future.thenAcceptAsync {
             Thread {
-                val fileName = "logs${File.separator}${System.currentTimeMillis()}.log"
+                val fileName = "logs${File.separator}$year-$month-$day.log"
                 val file = newFile(BukkitPlugin.getInstance().dataFolder, fileName)
                 val logger = FileLogger(file)
                 var total = 0.0

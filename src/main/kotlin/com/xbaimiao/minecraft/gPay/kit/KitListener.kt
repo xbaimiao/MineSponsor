@@ -1,6 +1,7 @@
 package com.xbaimiao.minecraft.gPay.kit
 
 import com.xbaimiao.minecraft.gPay.GPayX
+import com.xbaimiao.minecraft.gPay.core.Config
 import com.xbaimiao.minecraft.gPay.deposit.Deposit
 import com.xbaimiao.minecraft.gPay.utils.SQLite
 import org.bukkit.entity.Player
@@ -50,7 +51,7 @@ object KitListener {
             if (!kit.enable) {
                 continue
             }
-            val num = deposit.price * GPayX.exchange
+            val num = deposit.price * Config.exchange
             if (num >= kit.premise) {
                 val player = deposit.player
                 if (kit.maxAmount > player.getAmount(kit)) {

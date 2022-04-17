@@ -1,6 +1,7 @@
 package com.xbaimiao.minecraft.gPay.command
 
 import com.xbaimiao.minecraft.gPay.GPayX
+import com.xbaimiao.minecraft.gPay.core.Config
 import com.xbaimiao.minecraft.gPay.deposit.Deposit
 import com.xbaimiao.minecraft.gPay.deposit.DepositType
 import com.xbaimiao.minecraft.gPay.isNumber
@@ -47,7 +48,7 @@ object Auto {
     }
 
     private fun create(player: Player) {
-        player.inputSign(GPayX.signLines) {
+        player.inputSign(Config.signLines) {
             if (it.isEmpty()) {
                 return@inputSign
             }

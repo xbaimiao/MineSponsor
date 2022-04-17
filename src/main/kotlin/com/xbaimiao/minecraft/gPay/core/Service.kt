@@ -1,4 +1,4 @@
-package com.xbaimiao.minecraft.gPay.utils
+package com.xbaimiao.minecraft.gPay.core
 
 import com.lly835.bestpay.config.AliPayConfig
 import com.lly835.bestpay.config.WxPayConfig

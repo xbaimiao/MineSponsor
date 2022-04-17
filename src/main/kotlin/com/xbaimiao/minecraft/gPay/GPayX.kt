@@ -1,6 +1,7 @@
 package com.xbaimiao.minecraft.gPay
 
 import com.xbaimiao.minecraft.gPay.command.Commands
+import com.xbaimiao.minecraft.gPay.core.Service
 import com.xbaimiao.minecraft.gPay.datacenter.DataCenter
 import com.xbaimiao.minecraft.gPay.datacenter.impl.SQLiteDataCenter
 import com.xbaimiao.minecraft.gPay.hook.PlaceholderAPI
@@ -8,7 +9,6 @@ import com.xbaimiao.minecraft.gPay.kit.Kit
 import com.xbaimiao.minecraft.gPay.kit.KitListener
 import com.xbaimiao.minecraft.gPay.logger.FileLogger
 import com.xbaimiao.minecraft.gPay.logger.Logger
-import com.xbaimiao.minecraft.gPay.utils.Service
 import org.bukkit.Bukkit
 import taboolib.common.platform.Plugin
 import taboolib.common.platform.function.info
@@ -33,25 +33,12 @@ object GPayX : Plugin() {
     val logger: Logger get() = FileLogger.getInstance()
 
     var hasBot = false
+        private set
 
     lateinit var dataCenter: DataCenter
         private set
 
-    val prefix: String get() = config.getString("prefix")!!.colored()
-
-    val maxPrice: Double get() = config.getDouble("maxPrice")
-
-    val minPrice: Double get() = config.getDouble("minPrice")
-
     val kitList = ArrayList<Kit>()
-
-    val exchange get() = config.getInt("setting.exchange")
-
-    val cmds: List<String> get() = config.getStringList("setting.commands").colored()
-
-    val title get() = config.getString("title")!!.colored().split("/")
-
-    val signLines get() = config.getString("gui.sign")!!.colored().split("\n").toTypedArray()
 
     override fun onEnable() {
         info("GPay-X 已启用，感谢你支持正版插件")

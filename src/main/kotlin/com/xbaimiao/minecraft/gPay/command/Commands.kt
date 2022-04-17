@@ -2,6 +2,7 @@ package com.xbaimiao.minecraft.gPay.command
 
 import com.xbaimiao.minecraft.gPay.GPayX
 import com.xbaimiao.minecraft.gPay.GPayX.load
+import com.xbaimiao.minecraft.gPay.core.Config
 import com.xbaimiao.minecraft.gPay.datacenter.FindTask
 import com.xbaimiao.minecraft.gPay.deposit.Deposit
 import com.xbaimiao.minecraft.gPay.deposit.DepositType
@@ -111,12 +112,12 @@ internal object Commands {
             }
             literal("help", optional = true) {
                 execute<CommandSender> { sender, _, _ ->
-                    sender.sendMessage(GPayX.prefix + "/gpayx reload  -> 重载插件")
-                    sender.sendMessage(GPayX.prefix + "/gpayx w <数量>  -> 微信充值指定金额")
-                    sender.sendMessage(GPayX.prefix + "/gpayx a <数量>  -> 支付宝充值指定金额")
-                    sender.sendMessage(GPayX.prefix + "/gpayx find <年> <月(可选)> <日(可选)>  -> 列出指定的充值记录")
-                    sender.sendMessage(GPayX.prefix + "/gpayx finduser <玩家ID(需在线)> <年> <月(可选)> <日(可选)>  -> 列出指定的充值记录")
-                    sender.sendMessage(GPayX.prefix + "/gpayx -> 打开自助充值页面")
+                    sender.sendMessage(Config.prefix + "/gpayx reload  -> 重载插件")
+                    sender.sendMessage(Config.prefix + "/gpayx w <数量>  -> 微信充值指定金额")
+                    sender.sendMessage(Config.prefix + "/gpayx a <数量>  -> 支付宝充值指定金额")
+                    sender.sendMessage(Config.prefix + "/gpayx find <年> <月(可选)> <日(可选)>  -> 列出指定的充值记录")
+                    sender.sendMessage(Config.prefix + "/gpayx finduser <玩家ID(需在线)> <年> <月(可选)> <日(可选)>  -> 列出指定的充值记录")
+                    sender.sendMessage(Config.prefix + "/gpayx -> 打开自助充值页面")
                 }
             }
             execute<Player> { sender, _, _ ->

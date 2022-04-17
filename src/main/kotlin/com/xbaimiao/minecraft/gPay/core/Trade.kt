@@ -1,4 +1,4 @@
-package com.xbaimiao.minecraft.gPay.utils
+package com.xbaimiao.minecraft.gPay.core
 
 import com.lly835.bestpay.enums.BestPayPlatformEnum
 import com.lly835.bestpay.enums.BestPayTypeEnum

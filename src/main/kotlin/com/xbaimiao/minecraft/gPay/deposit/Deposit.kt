@@ -5,13 +5,14 @@ import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 import com.lly835.bestpay.model.PayResponse
 import com.xbaimiao.minecraft.gPay.GPayX
+import com.xbaimiao.minecraft.gPay.core.Config
 import com.xbaimiao.minecraft.gPay.datacenter.OldDeposit
 import com.xbaimiao.minecraft.gPay.events.OrderCreateEvent
 import com.xbaimiao.minecraft.gPay.events.OrderPaymentEvent
 import com.xbaimiao.minecraft.gPay.execute
 import com.xbaimiao.minecraft.gPay.kit.KitListener
 import com.xbaimiao.minecraft.gPay.mirai.Bot
-import com.xbaimiao.minecraft.gPay.utils.Trade
+import com.xbaimiao.minecraft.gPay.core.Trade
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
@@ -40,7 +41,7 @@ class Deposit(
             val deposit = Deposit(type, num, player) {
                 player.updateInventory()
                 GPayX.dataCenter.addDeposit(this.toOld())
-                GPayX.cmds.execute(player, this@Deposit)
+                Config.cmds.execute(player, this@Deposit)
                 KitListener.run(this@Deposit)
                 submit(async = true) {
                     GPayX.logger.println("${System.currentTimeMillis()}: ${this@Deposit.player.name}充值点券 -> ${this@Deposit.price} 元，支付方式 -> ${this@Deposit.type}")
@@ -51,7 +52,7 @@ class Deposit(
             }
             GPayX.logger.println("${System.currentTimeMillis()}: ${player.name}创建了一笔订单 金额 -> ${num}元")
             deposit.ok {
-                player.sendTitle(GPayX.title[0], GPayX.title[1], 20, 30, 20)
+                player.sendTitle(Config.title[0], Config.title[1], 20, 30, 20)
                 player.sendMap(deposit.getQR(), hand = NMSMap.Hand.OFF)
             }
             return deposit

@@ -1,5 +1,6 @@
 package com.xbaimiao.minecraft.gPay
 
+import com.xbaimiao.minecraft.gPay.core.Config
 import com.xbaimiao.minecraft.gPay.deposit.Deposit
 import org.bukkit.Bukkit
 import org.bukkit.boss.BarColor
@@ -26,7 +27,7 @@ fun String.isNumber(): Boolean {
     val isNum = pattern.matcher(this)
     if (isNum.matches()) {
         val amount = this.toDouble()
-        if (amount < GPayX.minPrice || amount > GPayX.maxPrice) {
+        if (amount < Config.minPrice || amount > Config.maxPrice) {
             return false
         }
         return true
@@ -41,7 +42,7 @@ class Bar(val string: String, val time: Int)
  */
 fun List<String>.execute(player: Player, deposit: Deposit) {
     //应该给的点券
-    val num = deposit.price * GPayX.exchange
+    val num = deposit.price * Config.exchange
     //主线程执行
     submit {
         for (s in this@execute) {
