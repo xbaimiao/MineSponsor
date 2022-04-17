@@ -3,6 +3,7 @@ package com.xbaimiao.minecraft.gPay
 import com.xbaimiao.minecraft.gPay.command.Commands
 import com.xbaimiao.minecraft.gPay.datacenter.DataCenter
 import com.xbaimiao.minecraft.gPay.datacenter.impl.SQLiteDataCenter
+import com.xbaimiao.minecraft.gPay.hook.PlaceholderAPI
 import com.xbaimiao.minecraft.gPay.kit.Kit
 import com.xbaimiao.minecraft.gPay.kit.KitListener
 import com.xbaimiao.minecraft.gPay.logger.FileLogger
@@ -33,7 +34,8 @@ object GPayX : Plugin() {
 
     var hasBot = false
 
-    val dataCenter: DataCenter = SQLiteDataCenter()
+    lateinit var dataCenter: DataCenter
+        private set
 
     val prefix: String get() = config.getString("prefix")!!.colored()
 
@@ -53,11 +55,15 @@ object GPayX : Plugin() {
 
     override fun onEnable() {
         info("GPay-X 已启用，感谢你支持正版插件")
+        dataCenter = SQLiteDataCenter()
         Commands.register()
         load()
         hasBot = Bukkit.getPluginManager().getPlugin("AmazingBot") != null
         if (hasBot) {
             info("已支持amazingBot订单通知")
+        }
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            PlaceholderAPI().register()
         }
     }
 

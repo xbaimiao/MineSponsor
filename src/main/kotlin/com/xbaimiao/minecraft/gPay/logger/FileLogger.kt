@@ -27,7 +27,7 @@ class FileLogger(private val file: File) : Logger {
             return FileLogger(
                 newFile(
                     BukkitPlugin.getInstance().dataFolder,
-                    "${simpleDateFormat.format(time)}.log"
+                    "logs${File.separator}${simpleDateFormat.format(time)}.log"
                 )
             ).also {
                 instance = it

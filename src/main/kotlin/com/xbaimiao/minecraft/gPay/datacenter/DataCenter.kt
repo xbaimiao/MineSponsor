@@ -24,4 +24,9 @@ interface DataCenter {
      */
     fun addDeposit(oldDeposit: OldDeposit)
 
+    /**
+     * 玩家充值总金额
+     */
+    fun playerAmount(player: Player): Double
+
 }

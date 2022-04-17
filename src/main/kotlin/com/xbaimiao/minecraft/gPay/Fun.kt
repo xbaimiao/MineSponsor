@@ -6,6 +6,7 @@ import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarStyle
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.submit
+import taboolib.xbaimiao.util.engine.IK
 import java.util.regex.Pattern
 
 fun String.isNumber(): Boolean {
@@ -109,7 +110,7 @@ fun List<String>.execute(player: Player, deposit: Deposit) {
                 }
             }
             if (cmd.startsWith("[points] ")) {
-                val reward = cmd.substring(9).toInt()
+                val reward = IK.eval<Int>(cmd.substring(9))
                 for (onlinePlayer in Bukkit.getOnlinePlayers()) {
                     val name = onlinePlayer.name
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "points give $name $reward")

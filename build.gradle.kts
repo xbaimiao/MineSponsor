@@ -11,6 +11,7 @@ taboolib {
         }
         dependencies {
             name("AmazingBot").optional(true)
+            name("PlaceholderAPI").optional(true)
         }
     }
     install("common")
@@ -39,8 +40,11 @@ dependencies {
     compileOnly("ink.ptms.core:v11701:11701:universal")
     compileOnly(kotlin("stdlib"))
     taboo("com.google.zxing:core:3.4.1")
+    taboo("com.xbaimiao:util:2.0.7")
+    taboo("public:ik:1.0.0")
     taboo(fileTree("libs"))
     compileOnly(fileTree("runOnly"))
+    compileOnly("public:papi:1.0.0")
 }
 
 tasks.withType<JavaCompile> {
