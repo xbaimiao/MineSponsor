@@ -46,9 +46,10 @@ class FindTask(val type: Type, val year: Int, val month: Int = 0, val day: Int =
                         num++
                         logger.println("${oldDeposit.year}-${oldDeposit.month}-${oldDeposit.day}: 玩家 -> ${oldDeposit.player} 金额 -> ${oldDeposit.amount}")
                     }
+                logger.writer.close()
                 sender.sendMessage("&7在 &e${year}年${month}月${day}日 &7总计金额: &e$total &7总计笔数: &e$num".colored())
                 if (num != 0) {
-                    sender.sendMessage("&7充值详情请查看 &e/plugins/GPayX/logs/$fileName".colored())
+                    sender.sendMessage("&7充值详情请查看 &e/plugins/GPayX/logs/$fileName".colored().replace("\\", "/"))
                 } else {
                     file.delete()
                 }

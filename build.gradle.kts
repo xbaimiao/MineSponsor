@@ -32,7 +32,7 @@ tasks.jar {
 
 repositories {
     mavenCentral()
-    maven(url = uri("https://run.xbaimiao.com/nexus/repository/maven-releases/"))
+    maven(url = uri("https://run.xbaimiao.com/releases"))
 }
 
 dependencies {
@@ -40,11 +40,11 @@ dependencies {
     compileOnly("ink.ptms.core:v11701:11701:universal")
     compileOnly(kotlin("stdlib"))
     taboo("com.google.zxing:core:3.4.1")
-    taboo("com.xbaimiao:util:2.0.7")
+    taboo("com.xbaimiao:util:2.0.8")
     taboo("public:ik:1.0.0")
     taboo(fileTree("libs"))
-    compileOnly(fileTree("runOnly"))
     compileOnly("public:papi:1.0.0")
+    compileOnly("public:amazingbot:4.0.0")
 }
 
 tasks.withType<JavaCompile> {

@@ -1,6 +1,7 @@
 prefix: "§7[§a§lGPAYX§7]"
 #接受订单通知的qq 需要配合amazingbot
 qq: ""
+botPrefix: "订单支付通知"
 title: "§a请支付/§b请打开充值链接或扫描地图二维码完成支付"
 # 单次创建的最大金额
 maxPrice: 10000.0

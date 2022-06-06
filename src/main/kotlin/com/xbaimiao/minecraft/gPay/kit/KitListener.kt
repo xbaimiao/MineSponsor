@@ -51,8 +51,8 @@ object KitListener {
             if (!kit.enable) {
                 continue
             }
-            val num = deposit.price * Config.exchange
-            if (num >= kit.premise) {
+            val num = deposit.price.toInt() * Config.exchange
+            if (num == kit.premise) {
                 val player = deposit.player
                 if (kit.maxAmount > player.getAmount(kit)) {
                     kit.execute(player, deposit)

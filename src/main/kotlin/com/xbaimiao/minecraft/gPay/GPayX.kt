@@ -18,7 +18,7 @@ import taboolib.module.configuration.ConfigFile
 
 object GPayX : Plugin() {
 
-    @Config(value = "config.yml")
+    @Config(value = "config.yml", migrate = true)
     lateinit var config: ConfigFile
         private set
 
@@ -56,6 +56,7 @@ object GPayX : Plugin() {
 
     override fun onDisable() {
         KitListener.sqlite.close()
+        FileLogger.cache.forEach { it.writer.close() }
     }
 
     fun load() {

@@ -46,6 +46,9 @@ fun List<String>.execute(player: Player, deposit: Deposit) {
     //主线程执行
     submit {
         for (s in this@execute) {
+            if (s.lowercase() == "return") {
+                return@submit
+            }
             val cmd = s.replace("%player_name%", player.name).replace("%pay_money%", num.toInt().toString())
             if (cmd.startsWith("[tell] ")) {
                 val tell = cmd.substring(7)

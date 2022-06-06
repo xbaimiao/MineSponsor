@@ -14,12 +14,14 @@ public class Bot {
         String qq = GPayX.INSTANCE.getConfig().getString("qq");
         if (qq != null && !qq.equals("")) {
             BotAPI api = me.albert.amazingbot.bot.Bot.getApi();
+
             api.sendGroupMsg(Long.parseLong(qq), String.format(
-                    "订单支付通知:\n" +
+                    GPayX.INSTANCE.getConfig().getString("botPrefix") + "\n" +
                             "订单号: %s\n" +
                             "商品名: %s\n" +
-                            "总金额: %s\n"
-                    , deposit.getOrderId(), deposit.getPlayer().getName() + "点券充值", deposit.getPrice()));
+                            "总金额: %s\n" +
+                            "支付方式: %s\n"
+                    , deposit.getOrderId(), deposit.getPlayer().getName() + "点券充值", deposit.getPrice(), deposit.getType().getTypeName()));
         }
     }
 

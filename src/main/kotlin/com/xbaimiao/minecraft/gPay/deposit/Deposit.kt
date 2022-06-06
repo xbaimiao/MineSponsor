@@ -6,13 +6,13 @@ import com.google.zxing.qrcode.QRCodeWriter
 import com.lly835.bestpay.model.PayResponse
 import com.xbaimiao.minecraft.gPay.GPayX
 import com.xbaimiao.minecraft.gPay.core.Config
+import com.xbaimiao.minecraft.gPay.core.Trade
 import com.xbaimiao.minecraft.gPay.datacenter.OldDeposit
 import com.xbaimiao.minecraft.gPay.events.OrderCreateEvent
 import com.xbaimiao.minecraft.gPay.events.OrderPaymentEvent
 import com.xbaimiao.minecraft.gPay.execute
 import com.xbaimiao.minecraft.gPay.kit.KitListener
 import com.xbaimiao.minecraft.gPay.mirai.Bot
-import com.xbaimiao.minecraft.gPay.core.Trade
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
@@ -53,7 +53,7 @@ class Deposit(
             GPayX.logger.println("${System.currentTimeMillis()}: ${player.name}创建了一笔订单 金额 -> ${num}元")
             deposit.ok {
                 player.sendTitle(Config.title[0], Config.title[1], 20, 30, 20)
-                player.sendMap(deposit.getQR(), hand = NMSMap.Hand.OFF)
+                player.sendMap(deposit.getQR(), hand = NMSMap.Hand.MAIN)
             }
             return deposit
         }

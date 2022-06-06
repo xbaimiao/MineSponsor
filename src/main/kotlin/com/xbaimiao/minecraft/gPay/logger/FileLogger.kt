@@ -8,15 +8,20 @@ import java.text.SimpleDateFormat
 
 class FileLogger(private val file: File) : Logger {
 
+    init {
+        cache.add(this)
+    }
+
+    val writer = file.printWriter()
+
     @Synchronized
     override fun println(string: String) {
-        file.printWriter().use {
-            it.println(string)
-        }
+        writer.println(string)
     }
 
     companion object {
 
+        val cache = arrayListOf<FileLogger>()
         private var instance: FileLogger? = null
 
         fun getInstance(time: Long = System.currentTimeMillis()): FileLogger {
