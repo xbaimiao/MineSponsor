@@ -21,7 +21,7 @@ public class Bot {
                             "商品名: %s\n" +
                             "总金额: %s\n" +
                             "支付方式: %s\n"
-                    , deposit.getOrderId(), deposit.getPlayer().getName() + "点券充值", deposit.getPrice(), deposit.getType().getTypeName()));
+                    , deposit.getOrderId(), deposit.getPlayer().getName() + "点券充值", deposit.getPrice(), deposit.getType()));
         }
     }
 

@@ -1,7 +1,7 @@
 plugins {
     java
-    id("io.izzel.taboolib") version "1.38"
-    id("org.jetbrains.kotlin.jvm") version "1.5.10"
+    id("io.izzel.taboolib") version "1.39"
+    id("org.jetbrains.kotlin.jvm") version "1.6.10"
 }
 
 taboolib {
@@ -23,7 +23,7 @@ taboolib {
     install("module-database")
     install("module-nms")
     install("module-nms-util")
-    version = "6.0.7-52"
+    version = "6.0.9-10"
 }
 
 tasks.jar {
@@ -39,9 +39,9 @@ dependencies {
     compileOnly("ink.ptms.core:v11701:11701:mapped")
     compileOnly("ink.ptms.core:v11701:11701:universal")
     compileOnly(kotlin("stdlib"))
-    taboo("com.google.zxing:core:3.4.1")
+    taboo("com.google.zxing:core:3.5.0")
     taboo("com.xbaimiao:util:2.0.8")
-    taboo("public:ik:1.0.0")
+    implementation("public:ik:1.0.0")
     taboo(fileTree("libs"))
     compileOnly("public:papi:1.0.0")
     compileOnly("public:amazingbot:4.0.0")

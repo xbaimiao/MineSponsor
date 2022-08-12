@@ -7,6 +7,7 @@ import org.bukkit.boss.BarColor
 import org.bukkit.boss.BarStyle
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.submit
+import taboolib.platform.compat.VaultService
 import taboolib.xbaimiao.util.engine.IK
 import java.util.regex.Pattern
 
@@ -49,7 +50,8 @@ fun List<String>.execute(player: Player, deposit: Deposit) {
             if (s.lowercase() == "return") {
                 return@submit
             }
-            val cmd = s.replace("%player_name%", player.name).replace("%pay_money%", num.toInt().toString())
+            var cmd = s.replace("%player_name%", player.name).replace("%pay_money%", num.toInt().toString())
+                .replace("%pay_cny%", deposit.price.toString())
             if (cmd.startsWith("[tell] ")) {
                 val tell = cmd.substring(7)
                 player.sendMessage(tell)
