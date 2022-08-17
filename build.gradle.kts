@@ -1,13 +1,13 @@
 plugins {
     java
-    id("io.izzel.taboolib") version "1.39"
+    id("io.izzel.taboolib") version "1.42"
     id("org.jetbrains.kotlin.jvm") version "1.6.10"
 }
 
 taboolib {
     description {
         contributors {
-            name("小白").description("GPayX")
+            name("小白").description("我的世界快捷赞助插件")
         }
         dependencies {
             name("AmazingBot").optional(true)
@@ -21,30 +21,34 @@ taboolib {
     install("module-chat")
     install("module-lang")
     install("module-database")
+    install("module-kether")
     install("module-nms")
     install("module-nms-util")
-    version = "6.0.9-10"
+    install("expansion-command-helper")
+    version = "6.0.9-59"
+    this.relocate("com.lly835.bestpay","com.xbaimiao.mine.sponsor.libs")
 }
 
 tasks.jar {
     this.exclude("org.xmlpull.v1.XmlPullParserFactory")
+    this.exclude("META-INF/*")
 }
 
 repositories {
     mavenCentral()
-    maven(url = uri("https://run.xbaimiao.com/releases"))
+    maven("https://repo.xbaimiao.com/nexus/content/repositories/releases/")
 }
 
 dependencies {
     compileOnly("ink.ptms.core:v11701:11701:mapped")
     compileOnly("ink.ptms.core:v11701:11701:universal")
     compileOnly(kotlin("stdlib"))
+    compileOnly(fileTree("runOnly"))
+
     taboo("com.google.zxing:core:3.5.0")
-    taboo("com.xbaimiao:util:2.0.8")
-    implementation("public:ik:1.0.0")
+    taboo("com.xbaimiao:util:2.10")
+    taboo("public:ik:1.0.0")
     taboo(fileTree("libs"))
-    compileOnly("public:papi:1.0.0")
-    compileOnly("public:amazingbot:4.0.0")
 }
 
 tasks.withType<JavaCompile> {
