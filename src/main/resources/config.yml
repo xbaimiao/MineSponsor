@@ -1,7 +1,4 @@
-prefix: "§7[§a§lGPAYX§7]"
-#接受订单通知的qq 需要配合amazingbot
-qq: ""
-botPrefix: "订单支付通知"
+prefix: "§7[§a§lMineSponsor§7]"
 title: "§a请支付/§b请打开充值链接或扫描地图二维码完成支付"
 # 单次创建的最大金额
 maxPrice: 10000.0
@@ -13,22 +10,23 @@ setting:
   exchange: 100
   # 充值完成后执行的命令
   commands:
-    # 假如玩家充值了一元， 那么就会通过Points命令给玩家 1 * 游戏币倍率数量的点券
     # %pay_money% 为玩家本次充值的点券
+    # %cny% 为玩家本次充值的金额
     # 可用动作
     # [player] 玩家执行命令,
     # [console] 控制台执行,
     # [tell] 给玩家发送一条消息,
-    # [bc] 给全部玩家发送一条消息,
-    # [bossbar] 给全部玩家发送一条bossbar消息 例如: "[bossbar] %player_name% 充值了15000点券!!!!&time&:5"  &time&:5 代表显示5秒
+    # [kether] 执行一个kether语句
     # [points] 数量 给在线全部人点券 支持运算 变量%pay_money%为玩家充值点券 %pay_money% * 0.0005 为玩家充值2000 奖励所有人1点券,
-    # [condition] 条件判断  判断成立才会执行后续内容 只可用 > < =
     - "[console] points give %player_name% %pay_money%"
-    - "[points] %pay_money% * 0.0005"
     - "[tell] &7[&a&fGPayx&7] &7你充值的&a%pay_money%&7点券已到账  "
-    - "[condition] %pay_money% > 4999"
-    - "[console] points give %player_name% 500"
-    - "[tell] &7[&a&fGPayx&7] &7你充值的点券大于5000 送你500  "
+mysql:
+  enable: false
+  host: localhost
+  port: 3306
+  database: minesponsor
+  user: root
+  password: 12345
 gui:
   # 告示牌设置
   sign: |

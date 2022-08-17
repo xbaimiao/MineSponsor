@@ -8,8 +8,6 @@ pay_wx:
   mchKey: ""
   # 开发密匙
   appSecret: ""
-  # 回调url 如果你没有服务器就填百度即可
-  notifyUrl: "http://www.baidu.com"
 # 支付宝密匙
 pay_ali:
   # 支付宝appid

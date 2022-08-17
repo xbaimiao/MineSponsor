@@ -1,1 +1,1 @@
-rootProject.name = "GPayX"
+rootProject.name = "MineSponsor"
