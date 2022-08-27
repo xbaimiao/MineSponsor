@@ -47,7 +47,8 @@ dependencies {
     taboo("com.google.zxing:core:3.5.0")
     taboo("com.xbaimiao:util:2.10")
     taboo("public:ik:1.0.0")
-    taboo(fileTree("libs"))
+    taboo("public:bestpay:1.0.0")
+//    compileOnly(fileTree("libs"))
 }
 
 tasks.withType<JavaCompile> {

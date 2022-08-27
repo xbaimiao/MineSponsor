@@ -8,17 +8,12 @@ import com.xbaimiao.mine.sponsor.datacenter.impl.MysqlDataCenter
 import com.xbaimiao.mine.sponsor.datacenter.impl.SQLiteDataCenter
 import org.bukkit.Bukkit
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
-import taboolib.common.env.RuntimeDependency
 import taboolib.common.platform.Plugin
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.ConfigFile
 import taboolib.module.configuration.Configuration
 
-@RuntimeDependency(
-    value = "public:bestpay:1.0.0",
-    repository = "https://repo.xbaimiao.com/nexus/content/repositories/releases/"
-)
 object MineSponsor : Plugin() {
 
     @Config(value = "config.yml", migrate = true)
