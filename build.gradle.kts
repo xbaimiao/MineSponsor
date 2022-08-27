@@ -1,7 +1,7 @@
 plugins {
     java
     id("io.izzel.taboolib") version "1.42"
-    id("org.jetbrains.kotlin.jvm") version "1.6.10"
+    id("org.jetbrains.kotlin.jvm") version "1.5.10"
 }
 
 taboolib {
@@ -25,8 +25,7 @@ taboolib {
     install("module-nms")
     install("module-nms-util")
     install("expansion-command-helper")
-    version = "6.0.9-59"
-    this.relocate("com.lly835.bestpay","com.xbaimiao.mine.sponsor.libs")
+    version = "6.0.9-71"
 }
 
 tasks.jar {
