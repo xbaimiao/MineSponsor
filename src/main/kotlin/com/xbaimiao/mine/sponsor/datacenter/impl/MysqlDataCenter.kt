@@ -35,7 +35,7 @@ class MysqlDataCenter : DataCenter {
     init {
         table.workspace(dataSource) { createTable() }.run()
         submit(async = true, period = 40, delay = 40) {
-            Bukkit.getOnlinePlayers().asSequence().filter { it.name in cache.keys }.forEach {
+            Bukkit.getOnlinePlayers().forEach {
                 playerAllDeposit(it).thenAcceptAsync { list ->
                     var amount = 0.0
                     list.forEach { deposit ->

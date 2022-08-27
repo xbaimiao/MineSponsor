@@ -19,7 +19,7 @@ setting:
     # [kether] 执行一个kether语句
     # [points] 数量 给在线全部人点券 支持运算 变量%pay_money%为玩家充值点券 %pay_money% * 0.0005 为玩家充值2000 奖励所有人1点券,
     - "[console] points give %player_name% %pay_money%"
-    - "[tell] &7[&a&fGPayx&7] &7你充值的&a%pay_money%&7点券已到账  "
+    - "[tell] &7[&a&fMineSponsor&7] &7你充值的&a%pay_money%&7点券已到账  "
 mysql:
   enable: false
   host: localhost

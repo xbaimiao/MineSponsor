@@ -4,11 +4,14 @@ import com.xbaimiao.mine.sponsor.MineSponsor
 import com.xbaimiao.mine.sponsor.core.Check.isNumber
 import com.xbaimiao.mine.sponsor.core.deposit.Sponsor
 import com.xbaimiao.mine.sponsor.core.deposit.SponsorType
+import com.xbaimiao.mine.sponsor.core.kit.KitSponsor
 import com.xbaimiao.mine.sponsor.datacenter.FindTask
+import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.*
 import taboolib.expansion.createHelper
+import taboolib.platform.util.onlinePlayers
 import taboolib.platform.util.sendLang
 import java.text.SimpleDateFormat
 
@@ -23,7 +26,7 @@ internal object Commands {
     @CommandBody(optional = true)
     val open = subCommand {
         execute<Player> { sender, _, _ ->
-            AutoSponsor.open(sender)
+            AutoSponsor.open(sender, AutoSponsor.AutoType.POINTS)
         }
     }
 
@@ -32,6 +35,19 @@ internal object Commands {
         execute<CommandSender> { sender, _, _ ->
             MineSponsor.load()
             sender.sendLang("reload")
+        }
+    }
+
+    @CommandBody(optional = true, permissionDefault = PermissionDefault.TRUE)
+    val kit = subCommand {
+        dynamic("礼包名") {
+            suggestion<Player> { _, _ ->
+                KitSponsor.cache.map { it.name }
+            }
+            execute<Player> { sender, context, argument ->
+                val kit = KitSponsor.cache.first { it.name == argument }
+                AutoSponsor.open(sender, AutoSponsor.AutoType.KIT, kit)
+            }
         }
     }
 
@@ -93,40 +109,48 @@ internal object Commands {
         }
     }
 
-//    fun register() {
-//        command(
-//            name = "gpayx", permissionDefault = PermissionDefault.TRUE, aliases = arrayListOf("pp")
-//        ) {
-//            literal("finduser", optional = true, permission = "gpayx.finduser") {
-//                dynamic {
-//                    suggestion<CommandSender>(uncheck = true) { _, _ ->
-//                        listOf(SimpleDateFormat("yyyy").format(System.currentTimeMillis()))
-//                    }
-//                    execute<CommandSender> { sender, _, argument ->
-//                        FindTask(FindTask.Type.PLAYER, argument.toInt()).start(sender)
-//                    }
-//                    dynamic {
-//                        suggestion<CommandSender>(uncheck = true) { _, _ ->
-//                            listOf(SimpleDateFormat("MM").format(System.currentTimeMillis()))
-//                        }
-//                        execute<CommandSender> { sender, args, argument ->
-//                            FindTask(
-//                                FindTask.Type.PLAYER, args.argument(-1).toInt(), argument.toInt()
-//                            ).start(sender)
-//                        }
-//                        dynamic {
-//                            suggestion<CommandSender>(uncheck = true) { _, _ ->
-//                                listOf(SimpleDateFormat("dd").format(System.currentTimeMillis()))
-//                            }
-//                            execute<CommandSender> { sender, args, day ->
-//                                val year = args.argument(-2).toInt()
-//                                val month = args.argument(-1).toInt()
-//                                FindTask(FindTask.Type.PLAYER, year, month, day.toInt()).start(sender)
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
+    @CommandBody(optional = true, permission = "minesponsor.find")
+    val findUser = subCommand {
+        dynamic("玩家") {
+            suggestion<CommandSender> { _, _ ->
+                onlinePlayers.map { it.name }
+            }
+            dynamic("年") {
+                suggestion<CommandSender>(uncheck = true) { _, _ ->
+                    listOf(SimpleDateFormat("yyyy").format(System.currentTimeMillis()))
+                }
+                execute<CommandSender> { sender, args, argument ->
+                    FindTask(FindTask.Type.PLAYER, argument.toInt()).start(
+                        sender,
+                        Bukkit.getPlayerExact(args.argument(-1))
+                    )
+                }
+                dynamic("月") {
+                    suggestion<CommandSender>(uncheck = true) { _, _ ->
+                        listOf(SimpleDateFormat("MM").format(System.currentTimeMillis()))
+                    }
+                    execute<CommandSender> { sender, args, argument ->
+                        FindTask(FindTask.Type.PLAYER, args.argument(-1).toInt(), argument.toInt()).start(
+                            sender,
+                            Bukkit.getPlayerExact(args.argument(-2))
+                        )
+                    }
+                    dynamic("日") {
+                        suggestion<CommandSender>(uncheck = true) { _, _ ->
+                            listOf(SimpleDateFormat("dd").format(System.currentTimeMillis()))
+                        }
+                        execute<CommandSender> { sender, args, day ->
+                            val year = args.argument(-2).toInt()
+                            val month = args.argument(-1).toInt()
+                            FindTask(FindTask.Type.PLAYER, year, month, day.toInt()).start(
+                                sender,
+                                Bukkit.getPlayerExact(args.argument(-3))
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

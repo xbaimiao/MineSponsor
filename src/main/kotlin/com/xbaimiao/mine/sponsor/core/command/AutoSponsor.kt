@@ -3,17 +3,21 @@ package com.xbaimiao.mine.sponsor.core.command
 import com.xbaimiao.mine.sponsor.MineSponsor
 import com.xbaimiao.mine.sponsor.core.Check.isNumber
 import com.xbaimiao.mine.sponsor.core.Setting
-import com.xbaimiao.mine.sponsor.core.deposit.SponsorType
 import com.xbaimiao.mine.sponsor.core.deposit.Sponsor
+import com.xbaimiao.mine.sponsor.core.deposit.SponsorType
+import com.xbaimiao.mine.sponsor.core.kit.KitSponsor
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.InventoryHolder
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.info
 import taboolib.library.xseries.XMaterial
 import taboolib.module.chat.colored
+import taboolib.module.nms.NMSMap
 import taboolib.module.nms.inputSign
+import taboolib.module.nms.sendMap
 import taboolib.platform.util.ItemBuilder
 import taboolib.platform.util.buildItem
 import taboolib.platform.util.sendLang
@@ -27,13 +31,29 @@ object AutoSponsor {
         }
     }
 
+    enum class AutoType {
+        POINTS, KIT
+    }
+
     private val map = HashMap<Player, SponsorType>()
+    private val autoTypes = HashMap<UUID, AutoType>()
+    private val kitCache = HashMap<UUID, KitSponsor>()
 
     private fun Player.getPayType(): SponsorType {
         return map[this] ?: SponsorType.WX
     }
 
-    fun open(player: Player) {
+    private fun Player.getAutoType(): AutoType {
+        return autoTypes[uniqueId] ?: AutoType.POINTS
+    }
+
+    private fun Player.getKit(): KitSponsor {
+        return kitCache[uniqueId] ?: error("未选择礼包点击GUI")
+    }
+
+    fun open(player: Player, type: AutoType, kitSponsor: KitSponsor? = null) {
+        kitSponsor?.let { kitCache[player.uniqueId] = it }
+        autoTypes[player.uniqueId] = type
         player.openInventory(gui.invoke())
     }
 
@@ -49,7 +69,13 @@ object AutoSponsor {
             if (slot == 6) {
                 map[player] = SponsorType.WX
             }
-            create(player)
+            when (player.getAutoType()) {
+                AutoType.POINTS -> create(player)
+                AutoType.KIT -> {
+                    createKit(player, player.getKit())
+                    player.closeInventory()
+                }
+            }
         }
     }
 
@@ -65,6 +91,19 @@ object AutoSponsor {
             } else {
                 player.sendLang("input-error")
             }
+        }
+    }
+
+    private fun createKit(player: Player, kitSponsor: KitSponsor) {
+        val sponsor = Sponsor(player.getPayType(), kitSponsor.cny, player, "礼包${kitSponsor.name}") {
+            player.updateInventory()
+            MineSponsor.dataCenter.addDeposit(this.toOld())
+            kitSponsor.givePlayer(player, this)
+        }
+        info("${System.currentTimeMillis()}: ${player.name}创建了一笔订单 金额 -> ${kitSponsor.cny}元")
+        sponsor.ok {
+            player.sendTitle(Setting.title[0], Setting.title[1], 20, 30, 20)
+            player.sendMap(sponsor.getQR(), hand = NMSMap.Hand.MAIN)
         }
     }
 

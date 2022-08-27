@@ -17,6 +17,7 @@ import taboolib.common.platform.function.info
 import taboolib.module.nms.NMSMap
 import taboolib.module.nms.sendMap
 import taboolib.platform.BukkitPlugin
+import taboolib.platform.util.asLangText
 import taboolib.platform.util.sendLang
 import java.awt.image.BufferedImage
 
@@ -24,6 +25,7 @@ class Sponsor(
     val type: SponsorType,
     val price: Double,
     val player: Player,
+    val text: String,
     private val callback: Sponsor.() -> Unit,
 ) {
 
@@ -35,7 +37,12 @@ class Sponsor(
          * @param type 支付类型
          */
         fun create(player: Player, num: Double, type: SponsorType): Sponsor {
-            val sponsor = Sponsor(type, num, player) {
+            val text = player.asLangText(
+                "sponsor",
+                player.name,
+                num * Setting.exchange
+            )
+            val sponsor = Sponsor(type, num, player, text) {
                 player.updateInventory()
                 MineSponsor.dataCenter.addDeposit(this.toOld())
                 Setting.cmds.execute(player, this@Sponsor)
@@ -83,8 +90,8 @@ class Sponsor(
         Bukkit.getScheduler().runTaskAsynchronously(BukkitPlugin.getInstance(), Runnable {
             Bukkit.getPluginManager().callEvent(SponsorCreateEvent(this@Sponsor))
             response = when (type) {
-                SponsorType.ALIPAY -> MineSponsorService.aliNative("余额充值", price)
-                SponsorType.WX -> MineSponsorService.wxNative("余额充值", price)
+                SponsorType.ALIPAY -> MineSponsorService.aliNative(text, price)
+                SponsorType.WX -> MineSponsorService.wxNative(text, price)
             }
             if (response.codeUrl == null) {
                 player.sendLang("fail")
