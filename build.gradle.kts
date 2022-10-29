@@ -25,7 +25,7 @@ taboolib {
     install("module-nms")
     install("module-nms-util")
     install("expansion-command-helper")
-    version = "6.0.9-71"
+    version = "6.0.9-74"
 }
 
 tasks.jar {

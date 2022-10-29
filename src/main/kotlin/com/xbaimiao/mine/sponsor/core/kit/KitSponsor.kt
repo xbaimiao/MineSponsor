@@ -37,7 +37,7 @@ data class KitSponsor(
         submit {
             for (execute in executes) {
                 val rawCommand = execute.replace("%player_name%", player.name)
-                    .replace("%pay_cny%", sponsor.price.toString())
+                    .replace("%pay_cny%", sponsor.price.toInt().toString())
 
                 if (rawCommand.startsWith("[tell] ")) {
                     val tell = rawCommand.substring(7)

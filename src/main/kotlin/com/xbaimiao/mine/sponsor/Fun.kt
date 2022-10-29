@@ -19,7 +19,7 @@ fun List<String>.execute(player: Player, deposit: Sponsor) {
     submit {
         for (s in this@execute) {
             val cmd = s.replace("%player_name%", player.name).replace("%pay_money%", num.toInt().toString())
-                .replace("%pay_cny%", deposit.price.toString())
+                .replace("%pay_cny%", deposit.price.toInt().toString())
 
             if (cmd.startsWith("[tell] ")) {
                 val tell = cmd.substring(7)
