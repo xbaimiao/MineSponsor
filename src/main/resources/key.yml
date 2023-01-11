@@ -4,10 +4,12 @@ pay_wx:
   appid: "wx5exxxxxxxxx"
   # 商户号
   mchid: "12453452"
-  # 商户密匙
-  mchKey: ""
-  # 开发密匙
-  appSecret: ""
+  # 私有证书
+  privateKeyPath: 'pem/apiclient_key.pem'
+  # 证书序列号
+  merchantSerialNumber: 'merchantSerialNumber'
+  # 微信支付平台证书
+  wechatPayCertificatePath: 'pem/weixing.pem'
 # 支付宝密匙
 pay_ali:
   # 支付宝appid
