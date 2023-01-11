@@ -9,10 +9,10 @@ import com.lly835.bestpay.model.PayRequest
 import com.lly835.bestpay.service.impl.BestPayServiceImpl
 import com.xbaimiao.mine.sponsor.core.service.CreateTradeOn
 import com.xbaimiao.mine.sponsor.core.service.Response
-import taboolib.module.configuration.Configuration
+import taboolib.library.configuration.ConfigurationSection
 
 class AliServiceImpl(
-    private val config: Configuration
+    private val section: ConfigurationSection
 ) : AliService, CreateTradeOn {
 
     private val aliPayConfig: AliPayConfig
@@ -21,7 +21,6 @@ class AliServiceImpl(
     init {
         aliPayConfig = object : AliPayConfig() {
             init {
-                val section = config.getConfigurationSection("pay_ali")!!
                 this.appId = section.getString("appid")
                 this.privateKey = section.getString("privateKey")
                 this.aliPayPublicKey = section.getString("aliPayPublicKey")

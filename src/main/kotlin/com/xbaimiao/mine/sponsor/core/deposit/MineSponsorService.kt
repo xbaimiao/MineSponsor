@@ -18,7 +18,7 @@ object MineSponsorService {
 
     fun reload() {
         MineSponsor.key.reload()
-        aliService = AliServiceImpl(MineSponsor.key)
+        aliService = AliServiceImpl(MineSponsor.key.getConfigurationSection("pay_ali")!!)
         weiXinService = WeiXinServiceImpl(MineSponsor.key.getConfigurationSection("pay_wx")!!)
     }
 
