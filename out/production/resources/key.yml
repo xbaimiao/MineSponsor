@@ -1,0 +1,18 @@
+# 微信密匙
+pay_wx:
+  # 微信appid
+  appid: "wx5exxxxxxxxx"
+  # 商户号
+  mchid: "12453452"
+  # 商户密匙
+  mchKey: ""
+  # 开发密匙
+  appSecret: ""
+# 支付宝密匙
+pay_ali:
+  # 支付宝appid
+  appid: ""
+  #商户私有key
+  privateKey: ""
+  #支付宝共有key
+  aliPayPublicKey: ""

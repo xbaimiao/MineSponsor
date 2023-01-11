@@ -25,9 +25,9 @@ import java.util.*
 
 object AutoSponsor {
 
-    object Holder : InventoryHolder {
+    class Holder : InventoryHolder {
         override fun getInventory(): Inventory {
-            TODO("Not yet implemented")
+            return Bukkit.createInventory(this, 9, "§8§l自动赞助".colored())
         }
     }
 
@@ -109,7 +109,7 @@ object AutoSponsor {
 
     private val gui: () -> Inventory
         get() = {
-            val inv = Bukkit.createInventory(Holder, 9, "&7&l自助赞助".colored())
+            val inv = Bukkit.createInventory(Holder(), 9, "&7&l自助赞助".colored())
             val aliHead = buildItem(XMaterial.PLAYER_HEAD) {
                 skullTexture =
                     ItemBuilder.SkullTexture(

@@ -13,6 +13,8 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.ConfigFile
 import taboolib.module.configuration.Configuration
+import taboolib.platform.BukkitPlugin
+import java.io.File
 
 object MineSponsor : Plugin() {
 
@@ -31,6 +33,10 @@ object MineSponsor : Plugin() {
         private set
 
     override fun onEnable() {
+        val file = File(BukkitPlugin.getInstance().dataFolder, "pem${File.separator}readme.txt")
+        if (!file.exists()) {
+            BukkitPlugin.getInstance().saveResource("pem${File.separator}readme.txt", false)
+        }
         dataCenter = if (config.getBoolean("mysql.enable")) {
             MysqlDataCenter()
         } else {

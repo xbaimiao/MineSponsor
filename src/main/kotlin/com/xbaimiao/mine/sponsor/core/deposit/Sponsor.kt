@@ -3,11 +3,11 @@ package com.xbaimiao.mine.sponsor.core.deposit
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
-import com.lly835.bestpay.model.PayResponse
 import com.xbaimiao.mine.sponsor.MineSponsor
 import com.xbaimiao.mine.sponsor.api.events.SponsorCreateEvent
 import com.xbaimiao.mine.sponsor.api.events.SponsorSucceedEvent
 import com.xbaimiao.mine.sponsor.core.Setting
+import com.xbaimiao.mine.sponsor.core.service.Response
 import com.xbaimiao.mine.sponsor.datacenter.OldDeposit
 import com.xbaimiao.mine.sponsor.execute
 import org.bukkit.Bukkit
@@ -70,7 +70,7 @@ class Sponsor(
     /**
      * 返回的订单数据
      */
-    private lateinit var response: PayResponse
+    private lateinit var response: Response
 
     /**
      * 充值参数加载完成后执行的方法
@@ -92,10 +92,6 @@ class Sponsor(
             response = when (type) {
                 SponsorType.ALIPAY -> MineSponsorService.aliNative(text, price)
                 SponsorType.WX -> MineSponsorService.wxNative(text, price)
-            }
-            if (response.codeUrl == null) {
-                player.sendLang("fail")
-                return@Runnable
             }
             orderId = response.orderId
             object : BukkitRunnable() {

@@ -15,6 +15,7 @@ import taboolib.platform.util.onlinePlayers
 import taboolib.platform.util.sendLang
 import java.text.SimpleDateFormat
 
+@Suppress("ALL")
 @CommandHeader("minesponsor", aliases = ["gpayx", "minepay", "pp"], permissionDefault = PermissionDefault.TRUE)
 internal object Commands {
 
@@ -139,7 +140,7 @@ internal object Commands {
                         suggestion<CommandSender>(uncheck = true) { _, _ ->
                             listOf(SimpleDateFormat("dd").format(System.currentTimeMillis()))
                         }
-                        execute<CommandSender> { sender, args, day ->
+                        execute { sender, args, day ->
                             val year = args.argument(-2).toInt()
                             val month = args.argument(-1).toInt()
                             FindTask(FindTask.Type.PLAYER, year, month, day.toInt()).start(

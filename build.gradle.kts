@@ -1,7 +1,7 @@
 plugins {
     java
-    id("io.izzel.taboolib") version "1.42"
-    id("org.jetbrains.kotlin.jvm") version "1.5.10"
+    id("io.izzel.taboolib") version "1.54"
+    id("org.jetbrains.kotlin.jvm") version "1.8.0"
 }
 
 taboolib {
@@ -25,7 +25,7 @@ taboolib {
     install("module-nms")
     install("module-nms-util")
     install("expansion-command-helper")
-    version = "6.0.9-74"
+    version = "6.0.10-59"
 }
 
 tasks.jar {
@@ -44,6 +44,7 @@ dependencies {
     compileOnly(kotlin("stdlib"))
     compileOnly(fileTree("runOnly"))
 
+    taboo("com.github.wechatpay-apiv3:wechatpay-java:0.2.5")
     taboo("com.google.zxing:core:3.5.0")
     taboo("com.xbaimiao:util:2.10")
     taboo("public:ik:1.0.0")
