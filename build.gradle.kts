@@ -44,6 +44,7 @@ dependencies {
     compileOnly(kotlin("stdlib"))
     compileOnly(fileTree("runOnly"))
 
+    implementation("com.github.wechatpay-apiv3:wechatpay-java:0.2.5")
     taboo("com.github.wechatpay-apiv3:wechatpay-java:0.2.5")
     taboo("com.google.zxing:core:3.5.0")
     taboo("com.xbaimiao:util:2.10")

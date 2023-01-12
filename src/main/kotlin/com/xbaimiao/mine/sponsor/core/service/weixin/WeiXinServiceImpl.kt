@@ -47,7 +47,7 @@ class WeiXinServiceImpl(
         return response.tradeState == com.wechat.pay.java.service.payments.model.Transaction.TradeStateEnum.SUCCESS
     }
 
-    override fun wxNative(orderName: String, amount: Double): Response {
+    override fun wxNative(orderName: String, player: String, amount: Double): Response? {
         val request = PrepayRequest()
         request.appid = appId
         request.mchid = mchid

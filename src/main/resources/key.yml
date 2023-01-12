@@ -1,3 +1,7 @@
+# 是否启用jsapi 启用后无需填写微信密钥
+js_api:
+  enable: false
+  url: 'http://api.xbaimiao.com'
 # 微信密匙
 pay_wx:
   # 微信appid

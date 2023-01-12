@@ -70,7 +70,7 @@ class Sponsor(
     /**
      * 返回的订单数据
      */
-    private lateinit var response: Response
+    private var response: Response? = null
 
     /**
      * 充值参数加载完成后执行的方法
@@ -93,7 +93,11 @@ class Sponsor(
                 SponsorType.ALIPAY -> MineSponsorService.aliNative(text, price)
                 SponsorType.WX -> MineSponsorService.wxNative(text, price)
             }
-            orderId = response.orderId
+            if (response == null){
+                player.sendLang("fail")
+                return@Runnable
+            }
+            orderId = response!!.orderId
             object : BukkitRunnable() {
                 var timer = 0
                 val maxTime = 300
@@ -133,7 +137,7 @@ class Sponsor(
      */
     fun getQR(): BufferedImage {
         val qrCodeWriter1 = QRCodeWriter()
-        val bitMatrix1: BitMatrix = qrCodeWriter1.encode(this.response.codeUrl, BarcodeFormat.QR_CODE, 128, 128)
+        val bitMatrix1: BitMatrix = qrCodeWriter1.encode(this.response!!.codeUrl, BarcodeFormat.QR_CODE, 128, 128)
         val width = bitMatrix1.width
         val height = bitMatrix1.height
         val image = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)

@@ -6,6 +6,7 @@ import com.xbaimiao.mine.sponsor.core.service.ali.AliService
 import com.xbaimiao.mine.sponsor.core.service.ali.AliServiceImpl
 import com.xbaimiao.mine.sponsor.core.service.weixin.WeiXinService
 import com.xbaimiao.mine.sponsor.core.service.weixin.WeiXinServiceImpl
+import com.xbaimiao.mine.sponsor.core.service.weixin.WeiXinServiceJsAPI
 
 object MineSponsorService {
 
@@ -19,15 +20,19 @@ object MineSponsorService {
     fun reload() {
         MineSponsor.key.reload()
         aliService = AliServiceImpl(MineSponsor.key.getConfigurationSection("pay_ali")!!)
-        weiXinService = WeiXinServiceImpl(MineSponsor.key.getConfigurationSection("pay_wx")!!)
+        weiXinService = if (MineSponsor.key.getBoolean("js_api.enable")) {
+            WeiXinServiceJsAPI(MineSponsor.key.getString("js_api.url")!!)
+        } else {
+            WeiXinServiceImpl(MineSponsor.key.getConfigurationSection("pay_wx")!!)
+        }
     }
 
 
     /**
      * 调起微信支付
      */
-    fun wxNative(orderName: String, amount: Double): Response {
-        return weiXinService.wxNative(orderName, amount)
+    fun wxNative(orderName: String, amount: Double): Response? {
+        return weiXinService.wxNative(orderName, "test", amount)
     }
 
     /**
