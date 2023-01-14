@@ -20,16 +20,22 @@ import taboolib.platform.BukkitPlugin
 import taboolib.platform.util.asLangText
 import taboolib.platform.util.sendLang
 import java.awt.image.BufferedImage
+import java.util.*
 
 class Sponsor(
     val type: SponsorType,
     val price: Double,
-    val player: Player,
+    var player: Player,
     val text: String,
-    private val callback: Sponsor.() -> Unit,
+    val callback: Sponsor.() -> Unit,
 ) {
 
     companion object {
+
+        val cache = HashMap<UUID, Sponsor>()
+
+        // 等待执行的操作
+        val wait = HashMap<UUID, Sponsor>()
 
         /**
          * @param player 玩家
@@ -38,9 +44,7 @@ class Sponsor(
          */
         fun create(player: Player, num: Double, type: SponsorType): Sponsor {
             val text = player.asLangText(
-                "sponsor",
-                player.name,
-                num * Setting.exchange
+                "sponsor", player.name, num * Setting.exchange
             )
             val sponsor = Sponsor(type, num, player, text) {
                 player.updateInventory()
@@ -49,9 +53,11 @@ class Sponsor(
             }
             info("${System.currentTimeMillis()}: ${player.name}创建了一笔订单 金额 -> ${num}元")
             sponsor.ok {
+                player.sendLang("pay-start")
                 player.sendTitle(Setting.title[0], Setting.title[1], 20, 30, 20)
                 player.sendMap(sponsor.getQR(), hand = NMSMap.Hand.MAIN)
             }
+            cache[player.uniqueId] = sponsor
             return sponsor
         }
 
@@ -91,16 +97,16 @@ class Sponsor(
             Bukkit.getPluginManager().callEvent(SponsorCreateEvent(this@Sponsor))
             response = when (type) {
                 SponsorType.ALIPAY -> MineSponsorService.aliNative(text, price)
-                SponsorType.WX -> MineSponsorService.wxNative(text, price)
+                SponsorType.WX -> MineSponsorService.wxNative(text, player, price)
             }
-            if (response == null){
+            if (response == null) {
                 player.sendLang("fail")
                 return@Runnable
             }
             orderId = response!!.orderId
             object : BukkitRunnable() {
                 var timer = 0
-                val maxTime = 300
+                val maxTime = 600
                 var isPay = false
                 override fun run() {
                     if (timer++ > maxTime) {
@@ -109,7 +115,11 @@ class Sponsor(
                     if (query() && !isPay) {
                         isPay = true
                         Bukkit.getPluginManager().callEvent(SponsorSucceedEvent(this@Sponsor))
-                        callback.invoke(this@Sponsor)
+                        if (player.isOnline) {
+                            callback.invoke(this@Sponsor)
+                        } else {
+                            wait[player.uniqueId] = this@Sponsor
+                        }
                         cancel()
                     }
                 }

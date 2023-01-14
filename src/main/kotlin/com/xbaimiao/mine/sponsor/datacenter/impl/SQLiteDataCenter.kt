@@ -1,5 +1,6 @@
 package com.xbaimiao.mine.sponsor.datacenter.impl
 
+import com.xbaimiao.mine.sponsor.core.kit.KitSponsor
 import com.xbaimiao.mine.sponsor.datacenter.DataCenter
 import com.xbaimiao.mine.sponsor.datacenter.OldDeposit
 import org.bukkit.Bukkit
@@ -37,8 +38,21 @@ class SQLiteDataCenter : DataCenter {
         }
     }
 
+    private val buyNumTable = Table("gpayx_buy_num", host) {
+        add("player") {
+            type(ColumnTypeSQLite.TEXT, 32)
+        }
+        add("kit") {
+            type(ColumnTypeSQLite.TEXT, 32)
+        }
+        add("num") {
+            type(ColumnTypeSQLite.INTEGER, 32)
+        }
+    }
+
     init {
         table.workspace(dataSource) { createTable() }.run()
+        buyNumTable.workspace(dataSource) { createTable() }.run()
         submit(async = true, period = 40, delay = 40) {
             Bukkit.getOnlinePlayers().asSequence().filter { it.name in cache.keys }.forEach {
                 playerAllDeposit(it).thenAcceptAsync { list ->
@@ -97,6 +111,46 @@ class SQLiteDataCenter : DataCenter {
             }
         }
         return future
+    }
+
+    override fun getKitBuyNum(player: Player, kitSponsor: KitSponsor): Int {
+        return buyNumTable.workspace(dataSource) {
+            select {
+                where {
+                    "player" eq player.name
+                    "kit" eq kitSponsor.name
+                }
+            }
+        }.map {
+            getInt("num")
+        }.firstOrNull() ?: 0
+    }
+
+    override fun setKitBuyNum(player: Player, kitSponsor: KitSponsor, num: Int) {
+        buyNumTable.workspace(dataSource) {
+            select {
+                where {
+                    "player" eq player.name
+                    "kit" eq kitSponsor.name
+                }
+            }
+        }.map {
+            getInt("num")
+        }.firstOrNull()?.let {
+            buyNumTable.workspace(dataSource) {
+                update {
+                    set("num", num)
+                    where {
+                        "player" eq player.name
+                        "kit" eq kitSponsor.name
+                    }
+                }
+            }.run()
+        } ?: buyNumTable.workspace(dataSource) {
+            insert {
+                value(player.name, kitSponsor.name, num)
+            }
+        }.run()
     }
 
 }

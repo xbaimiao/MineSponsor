@@ -95,10 +95,19 @@ object AutoSponsor {
     }
 
     private fun createKit(player: Player, kitSponsor: KitSponsor) {
+        if (kitSponsor.novice) {
+            if (MineSponsor.dataCenter.getKitBuyNum(player, kitSponsor) > 0) {
+                player.sendLang("novice-kit", kitSponsor.name)
+                return
+            }
+        }
         val sponsor = Sponsor(player.getPayType(), kitSponsor.cny, player, "礼包${kitSponsor.name}") {
             player.updateInventory()
             MineSponsor.dataCenter.addDeposit(this.toOld())
             kitSponsor.givePlayer(player, this)
+            if (kitSponsor.novice) {
+                MineSponsor.dataCenter.setKitBuyNum(player, kitSponsor, 1)
+            }
         }
         info("${System.currentTimeMillis()}: ${player.name}创建了一笔订单 金额 -> ${kitSponsor.cny}元")
         sponsor.ok {

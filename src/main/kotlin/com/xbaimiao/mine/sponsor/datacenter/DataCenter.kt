@@ -1,5 +1,6 @@
 package com.xbaimiao.mine.sponsor.datacenter
 
+import com.xbaimiao.mine.sponsor.core.kit.KitSponsor
 import org.bukkit.entity.Player
 import java.util.concurrent.CompletableFuture
 
@@ -28,5 +29,9 @@ interface DataCenter {
      * 玩家充值总金额
      */
     fun playerAmount(player: Player): Double
+
+    fun getKitBuyNum(player: Player, kitSponsor: KitSponsor): Int
+
+    fun setKitBuyNum(player: Player, kitSponsor: KitSponsor, num: Int)
 
 }

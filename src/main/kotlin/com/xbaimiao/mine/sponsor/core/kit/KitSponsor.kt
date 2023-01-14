@@ -11,7 +11,9 @@ import taboolib.platform.BukkitAdapter
 data class KitSponsor(
     val name: String,
     val executes: List<String>,
-    val cny: Double
+    val cny: Double,
+    val perm: String?,
+    val novice: Boolean
 ) {
 
     companion object {
@@ -25,7 +27,9 @@ data class KitSponsor(
                     KitSponsor(
                         key,
                         MineSponsor.kit.getStringList("$key.commands"),
-                        MineSponsor.kit.getDouble("$key.cny")
+                        MineSponsor.kit.getDouble("$key.cny"),
+                        MineSponsor.kit.getString("$key.perm"),
+                        MineSponsor.kit.getBoolean("$key.novice")
                     )
                 )
             }

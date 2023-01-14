@@ -7,6 +7,7 @@ import com.xbaimiao.mine.sponsor.core.service.ali.AliServiceImpl
 import com.xbaimiao.mine.sponsor.core.service.weixin.WeiXinService
 import com.xbaimiao.mine.sponsor.core.service.weixin.WeiXinServiceImpl
 import com.xbaimiao.mine.sponsor.core.service.weixin.WeiXinServiceJsAPI
+import org.bukkit.entity.Player
 
 object MineSponsorService {
 
@@ -31,8 +32,8 @@ object MineSponsorService {
     /**
      * 调起微信支付
      */
-    fun wxNative(orderName: String, amount: Double): Response? {
-        return weiXinService.wxNative(orderName, "test", amount)
+    fun wxNative(orderName: String, player: Player, amount: Double): Response? {
+        return weiXinService.wxNative(orderName, player.name, amount)
     }
 
     /**

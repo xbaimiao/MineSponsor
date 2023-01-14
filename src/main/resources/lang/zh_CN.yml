@@ -3,3 +3,10 @@ no-permission: "你没有使用此命令的权限"
 reload: "重载完成"
 input-error: "请输入正确的数字"
 sponsor: "{0}像素币 {1}"
+pay-start: |-
+  &7[&a&fMineSponsor&7] &7你的充值订单已创建
+  &7[&a&fMineSponsor&7] &7请在20分钟内完成支付
+pay-close: |-
+  &7[&a&fMineSponsor&7] &7地图已关闭
+  &7[&a&fMineSponsor&7] &7如已付款，系统将在几秒后发货
+novice-kit: '你已经购买过一次{0}了'

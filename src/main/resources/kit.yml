@@ -1,5 +1,9 @@
 测试礼包:
   cny: 0.1
+  # 是否每人限制一次
+  novice: false
+  # 拥有 我是脑瘫 这个权限即可购买
+  perm: '我是脑瘫'
   commands:
     # [player] 玩家执行命令,
     # [console] 控制台执行,

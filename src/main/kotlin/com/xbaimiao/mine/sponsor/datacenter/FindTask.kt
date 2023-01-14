@@ -20,7 +20,7 @@ class FindTask(private val type: Type, private val year: Int, private val month:
         if (player == null && type == Type.PLAYER) {
             error("在运行FindTask时,未传入参数 player")
         }
-        val future: CompletableFuture<List<OldDeposit>> = when (type) {
+        val future = when (type) {
             Type.ALL -> {
                 MineSponsor.dataCenter.allDeposit()
             }
