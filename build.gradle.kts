@@ -10,7 +10,6 @@ taboolib {
             name("小白").description("我的世界快捷赞助插件")
         }
         dependencies {
-            name("AmazingBot").optional(true)
             name("PlaceholderAPI").optional(true)
         }
     }
@@ -39,17 +38,19 @@ repositories {
 }
 
 dependencies {
+    taboo("com.xbaimiao:util:2.10")
+    taboo("public:ik:1.0.0")
+    taboo("com.squareup.okhttp3:okhttp:4.9.1")
+    compileOnly("public:papi:1.0.0")
     compileOnly("ink.ptms.core:v11701:11701:mapped")
     compileOnly("ink.ptms.core:v11701:11701:universal")
     compileOnly(kotlin("stdlib"))
-    compileOnly(fileTree("runOnly"))
 
-    implementation("com.github.wechatpay-apiv3:wechatpay-java:0.2.5")
-    taboo("com.github.wechatpay-apiv3:wechatpay-java:0.2.5")
-    taboo("com.google.zxing:core:3.5.0")
-    taboo("com.xbaimiao:util:2.10")
-    taboo("public:ik:1.0.0")
-    taboo("public:bestpay:1.0.0")
+//    compileOnly(fileTree("runOnly"))
+//    implementation("com.github.wechatpay-apiv3:wechatpay-java:0.2.5")
+//    taboo("com.github.wechatpay-apiv3:wechatpay-java:0.2.5")
+//    taboo("com.google.zxing:core:3.5.0")
+//    taboo("public:bestpay:1.0.0")
 //    compileOnly(fileTree("libs"))
 }
 

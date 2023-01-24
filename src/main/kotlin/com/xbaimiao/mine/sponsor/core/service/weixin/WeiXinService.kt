@@ -6,6 +6,6 @@ interface WeiXinService {
 
     fun wxQuery(orderId: String): Boolean
 
-    fun wxNative(orderName: String, player: String, amount: Double): Response?
+    fun wxPay(orderName: String, player: String, amount: Double): Response?
 
 }

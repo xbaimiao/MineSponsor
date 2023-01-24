@@ -1,8 +1,8 @@
 package com.xbaimiao.mine.sponsor.core
 
-import com.lly835.libs.okhttp3.OkHttpClient
-import com.lly835.libs.okhttp3.Response
-import com.lly835.libs.okhttp3.Request
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 
 object HttpClient {
 

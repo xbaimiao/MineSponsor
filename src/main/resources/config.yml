@@ -1,7 +1,7 @@
-prefix: "§7[§a§lMineSponsor§7]"
-title: "§a请支付/§b请打开充值链接或扫描地图二维码完成支付"
+apiKey: '服务器的apiKey'
+url: '服务器的url'
 # 单次创建的最大金额
-maxPrice: 10000.0
+maxPrice: 1000.0
 # 单次创建的最小金额
 minPrice: 1.0
 # 高级设置
@@ -20,13 +20,6 @@ setting:
     # [points] 数量 给在线全部人点券 支持运算 变量%pay_money%为玩家充值点券 %pay_money% * 0.0005 为玩家充值2000 奖励所有人1点券,
     - "[console] points give %player_name% %pay_money%"
     - "[tell] &7[&a&fMineSponsor&7] &7你充值的&a%pay_money%&7点券已到账  "
-mysql:
-  enable: false
-  host: localhost
-  port: 3306
-  database: minesponsor
-  user: root
-  password: 12345
 gui:
   # 告示牌设置
   sign: |

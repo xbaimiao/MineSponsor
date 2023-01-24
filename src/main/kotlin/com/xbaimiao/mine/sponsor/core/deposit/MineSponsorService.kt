@@ -1,13 +1,12 @@
 package com.xbaimiao.mine.sponsor.core.deposit
 
 import com.xbaimiao.mine.sponsor.MineSponsor
+import com.xbaimiao.mine.sponsor.core.Setting
 import com.xbaimiao.mine.sponsor.core.service.Response
 import com.xbaimiao.mine.sponsor.core.service.ali.AliService
 import com.xbaimiao.mine.sponsor.core.service.ali.AliServiceImpl
 import com.xbaimiao.mine.sponsor.core.service.weixin.WeiXinService
 import com.xbaimiao.mine.sponsor.core.service.weixin.WeiXinServiceImpl
-import com.xbaimiao.mine.sponsor.core.service.weixin.WeiXinServiceJsAPI
-import org.bukkit.entity.Player
 
 object MineSponsorService {
 
@@ -19,43 +18,22 @@ object MineSponsorService {
     }
 
     fun reload() {
-        MineSponsor.key.reload()
-        aliService = AliServiceImpl(MineSponsor.key.getConfigurationSection("pay_ali")!!)
-        weiXinService = if (MineSponsor.key.getBoolean("js_api.enable")) {
-            WeiXinServiceJsAPI(MineSponsor.key.getString("js_api.url")!!)
-        } else {
-            WeiXinServiceImpl(MineSponsor.key.getConfigurationSection("pay_wx")!!)
+        aliService = AliServiceImpl(Setting.url, Setting.apiKey)
+        weiXinService = WeiXinServiceImpl(Setting.url, Setting.apiKey)
+    }
+
+    fun pay(sponsor: Sponsor): Response? {
+        return when (sponsor.type) {
+            SponsorType.WX -> weiXinService.wxPay(sponsor.desc, sponsor.player.name, sponsor.price)
+            SponsorType.ALIPAY -> aliService.alipay(sponsor.desc, sponsor.player.name, sponsor.price)
         }
     }
 
-
-    /**
-     * 调起微信支付
-     */
-    fun wxNative(orderName: String, player: Player, amount: Double): Response? {
-        return weiXinService.wxNative(orderName, player.name, amount)
+    fun query(sponsor: Sponsor): Boolean {
+        return when (sponsor.type) {
+            SponsorType.WX -> weiXinService.wxQuery(sponsor.player.name)
+            SponsorType.ALIPAY -> aliService.aliQuery(sponsor.player.name)
+        }
     }
-
-    /**
-     * 调起支付宝支付
-     */
-    fun aliNative(orderName: String, amount: Double): Response {
-        return aliService.aliNative(orderName, amount)
-    }
-
-    /**
-     * 查询支付宝订单
-     */
-    fun aliQuery(orderId: String): Boolean {
-        return aliService.aliQuery(orderId)
-    }
-
-    /**
-     * 查询微信订单
-     */
-    fun wxQuery(orderId: String): Boolean {
-        return weiXinService.wxQuery(orderId)
-    }
-
 
 }

@@ -8,7 +8,8 @@ import taboolib.module.chat.colored
  */
 object Setting {
 
-    val prefix: String get() = MineSponsor.config.getString("prefix")!!.colored()
+    val apiKey: String get() = MineSponsor.config.getString("apiKey")!!
+    val url: String get() = MineSponsor.config.getString("url")!!
 
     val maxPrice: Double get() = MineSponsor.config.getDouble("maxPrice")
 
@@ -16,9 +17,7 @@ object Setting {
 
     val exchange get() = MineSponsor.config.getInt("setting.exchange")
 
-    val cmds: List<String> get() = MineSponsor.config.getStringList("setting.commands").colored()
-
-    val title get() = MineSponsor.config.getString("title")!!.colored().split("/")
+    val commands: List<String> get() = MineSponsor.config.getStringList("setting.commands").colored()
 
     val signLines get() = MineSponsor.config.getString("gui.sign")!!.colored().split("\n").toTypedArray()
 

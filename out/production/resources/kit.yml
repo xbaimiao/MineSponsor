@@ -1,8 +1,0 @@
-测试礼包:
-  cny: 0.1
-  commands:
-    # [player] 玩家执行命令,
-    # [console] 控制台执行,
-    # [tell] 给玩家发送一条消息,
-    # [kether] 执行一个kether语句
-    - "[tell] 你购买了测试礼包"
